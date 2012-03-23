@@ -41,6 +41,11 @@ class AppController extends Controller {
     );
 
     public function beforeFilter() {
+        $this->Auth->authenticate = array(
+            AuthComponent::ALL => array('userModel' => 'Member'),
+            'Cas',
+            'Form'
+        );
         $this->Auth->allow('index', 'view');
     }
 }

@@ -20,5 +20,5 @@ if (Configure::read('debug') == 0):
 endif;
 App::uses('Debugger', 'Utility');
 ?>
-<p>You be logged in, bra.</p>
+<p>You be logged in as <?= AuthComponent::user('username') ?>, bra.</p>
 <p><?php echo $this->Html->link('logout', '/users/logout'); ?></p>
