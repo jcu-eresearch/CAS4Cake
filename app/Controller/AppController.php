@@ -35,7 +35,7 @@ class AppController extends Controller {
   public $components = array(
         'Session',
         'Auth' => array(
-            'loginRedirect' => array('controller' => 'pages', 'action' => 'display', 'secret'),
+            'loginRedirect' => array('controller' => 'secrets', 'action' => 'index'),
             'logoutRedirect' => array('controller' => 'pages', 'action' => 'display', 'home')
         )
     );
@@ -46,6 +46,6 @@ class AppController extends Controller {
             'Cas',
             'Form'
         );
-        $this->Auth->allow('index', 'view');
+        $this->Auth->allow('*');
     }
 }

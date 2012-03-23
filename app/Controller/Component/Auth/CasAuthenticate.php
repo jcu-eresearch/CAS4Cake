@@ -1,7 +1,7 @@
 <?php
 
 App::uses('BaseAuthenticate', 'Controller/Component/Auth');
-App::import('Vendor', 'CAS/CAS'); 
+App::import('Vendor', 'CAS/CAS');
 
 class CasAuthenticate /* extends BaseAuthenticate */ {
     private $_Collection = NULL;
@@ -10,7 +10,7 @@ class CasAuthenticate /* extends BaseAuthenticate */ {
         $this->_Collection = $collection;
 
         // Uncomment to enable debugging
-        //phpCAS::setDebug();
+        phpCAS::setDebug('/Users/tom/Sites/cake/app/tmp/phpcas.log.txt');
 
         // Initialize phpCAS
         phpCAS::client(CAS_VERSION_2_0,
@@ -47,16 +47,26 @@ class CasAuthenticate /* extends BaseAuthenticate */ {
         return array('username' => phpCAS::getUser());
     }
 
-    public function logout($user) {
+    public function getUser($request) {
+        return FALSE;
+    }
 
+    public function logout($user) {
+        CakeSession::start();
+        //echo '<pre>';
+        //debug_print_backtrace();
+        //echo '</pre>';
+        //pr('sess name:' . session_name());
+        //pr($_SESSION);
+
+        if(phpCAS::isAuthenticated()){
           //will redirect browser to cas logout url
           //after logout, will redirect back to the logout action here
-          $auth = $this->_Collection->getController()->Auth;
-          $logout_url = Router::url($auth->logoutRedirect, true);
-          phpCAS::logout(array('url'=>$logout_url));
-
+          phpCAS::logout(array('url'=>Router::url(null, true)));
+        } else {
           //not logged in
           //this will happen when CAS has just logged out and has redirected the client
-          //back to here.
+            //back to here.
+        }
     }
 }
