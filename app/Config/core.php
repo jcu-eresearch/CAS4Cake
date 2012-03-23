@@ -285,4 +285,5 @@ Cache::config('_cake_model_', array(
 Configure::write('CAS.hostname', 'auth.ala.org.au');
 Configure::write('CAS.port', 443);
 Configure::write('CAS.uri', 'cas');
-//TODO: Configure::write('CAS.cert_path', 'path/to/cert_file');
+Configure::write('CAS.cert_path', APP . 'Config/ala.pem');
+Configure::write('CAS.debug_log_enabled', FALSE);
